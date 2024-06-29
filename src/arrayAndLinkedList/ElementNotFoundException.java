@@ -1,4 +1,4 @@
-package arrayAndLinkedList.arrayList;
+package arrayAndLinkedList;
 
 public class ElementNotFoundException extends RuntimeException {
     public ElementNotFoundException(String message) {

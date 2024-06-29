@@ -1,4 +1,4 @@
-package arrayAndLinkedList.arrayList;
+package arrayAndLinkedList;
 
 import org.jetbrains.annotations.NotNull;
 
