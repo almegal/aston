@@ -1,5 +1,6 @@
-package arrayAndLinkedList;
+package arrayAndLinkedList.ArrayList;
 
+import arrayAndLinkedList.NewList;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -14,7 +15,7 @@ import java.util.stream.IntStream;
  *
  * @param <T> тип элементов, хранящихся в этом списке
  */
-public class NewArrayListImpl<T> implements NewArrayList<T> {
+public class NewArrayListImpl<T> implements NewList<T> {
 
     /**
      * Начальная ёмкость списка по умолчанию.

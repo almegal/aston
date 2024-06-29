@@ -7,7 +7,7 @@ import java.util.Comparator;
  * получить элемент, удалить элемент, очистить всю коллекцию, отсортировать,
  * остальное по желанию
  * */
-public interface NewArrayList<T> {
+public interface NewList<T> {
     public boolean add(T element);
 
     public void add(int index, T element);

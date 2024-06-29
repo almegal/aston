@@ -1,5 +1,7 @@
-package arrayAndLinkedList;
+package arrayAndLinkedList.ArrayList;
 
+import arrayAndLinkedList.ArrayList.NewArrayListImpl;
+import arrayAndLinkedList.NewList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class NewArrayListImplTest {
     // константы используемые в тестах
     private final int INITIAL_SIZE = 4;
-    private NewArrayList<Integer> DEFAULT_ARRAY_LIST;
+    private NewList<Integer> DEFAULT_ARRAY_LIST;
 
     // аргументы для тестов типа int element, int index
     static public Stream<Arguments> argsProviderForShouldAddElementByIndex() {
@@ -73,7 +75,7 @@ public class NewArrayListImplTest {
         // подготовка данных
         // создадим массив для проверки и тестируемый
         Integer[] arrayList = new Integer[sizeStream];
-        NewArrayList<Integer> array = new NewArrayListImpl<>();
+        NewList<Integer> array = new NewArrayListImpl<>();
         // заполним нативный список и наш лист данными
         IntStream.range(0, sizeStream).forEach(e -> {
             arrayList[e] = e;
@@ -108,7 +110,7 @@ public class NewArrayListImplTest {
         int element = index * 2;
         // создадим реализованный лист и наш
         List<Integer> arrayForExpected = new ArrayList<>();
-        NewArrayList<Integer> arrayForActual = new NewArrayListImpl<>();
+        NewList<Integer> arrayForActual = new NewArrayListImpl<>();
         // заполним данными
         IntStream.range(0, sizeStream).forEach(e -> {
             arrayForExpected.add(e);
