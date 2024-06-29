@@ -131,7 +131,7 @@ public class NewArrayListImpl<T> implements NewList<T> {
      * @return {@code true}, если этот список содержал указанный элемент
      */
     @Override
-    public boolean remove(T element) {
+    public boolean remove(@NotNull T element) {
         int index = getIndexByElement(element);
         if (index >= 0) {
             offsetStorage(index);
@@ -180,7 +180,6 @@ public class NewArrayListImpl<T> implements NewList<T> {
     /**
      * Увеличивает ёмкость массива хранения.
      *
-     * @return новый массив хранения с увеличенной ёмкостью
      */
     private void growSizeStorage() {
         currentCapacity = storage.length * 2;
