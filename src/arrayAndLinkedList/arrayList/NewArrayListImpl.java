@@ -78,7 +78,7 @@ public class NewArrayListImpl<T> implements NewArrayList<T> {
     @Override
     public boolean add(@NotNull T element) {
         if (needGrow()) {
-            storage = growSizeStorage();
+            growSizeStorage();
         }
         storage[size++] = element;
         return true;
@@ -95,15 +95,18 @@ public class NewArrayListImpl<T> implements NewArrayList<T> {
      */
     @Override
     public void add(int index, @NotNull T element) {
+        // проверяем что индекс допустимый
         checkIndexInRange(index);
+        // если надо увеличить массив - увеличиваем
         if (needGrow()) {
-            storage = growSizeStorage();
+            growSizeStorage();
         }
-        if (index != size + 1) {
+        // добавляем елемент в массив на индекс
+        if (index == size) {
+            add(element);
+        } else {
             offsetStorage(index, element);
-            return;
         }
-        add(element);
     }
 
     /**
@@ -178,9 +181,9 @@ public class NewArrayListImpl<T> implements NewArrayList<T> {
      *
      * @return новый массив хранения с увеличенной ёмкостью
      */
-    private T[] growSizeStorage() {
+    private void growSizeStorage() {
         currentCapacity = storage.length * 2;
-        return Arrays.copyOf(storage, currentCapacity);
+        storage = Arrays.copyOf(storage, currentCapacity);
     }
 
     /**
@@ -189,7 +192,7 @@ public class NewArrayListImpl<T> implements NewArrayList<T> {
      * @return {@code true}, если необходимо увеличить ёмкость массива хранения
      */
     private boolean needGrow() {
-        return size + 1 > storage.length;
+        return size >= storage.length;
     }
 
     /**
@@ -211,10 +214,11 @@ public class NewArrayListImpl<T> implements NewArrayList<T> {
      * @param element элемент, который нужно вставить
      */
     private void offsetStorage(int index, T element) {
-        size++;
-        T[] subStorage = Arrays.copyOfRange(storage, index, size);
+        // свдигаем массив на одну позицию вправо
+        System.arraycopy(storage, index, storage, index + 1, size - index);
+        // записываем значение в нужный индекс
         storage[index] = element;
-        System.arraycopy(subStorage, 0, storage, index + 1, subStorage.length);
+        size++;
     }
 
     /**
@@ -223,10 +227,13 @@ public class NewArrayListImpl<T> implements NewArrayList<T> {
      * @param index индекс элемента, который нужно удалить
      */
     private void offsetStorage(int index) {
+        // проверяем что не выходим за массив
         if (size - 1 - index >= 0) {
+            // свдигаем массив влево
             System.arraycopy(storage, index + 1, storage, index, size - 1 - index);
         }
         size--;
+        // записываем последний елемент как null
         storage[size] = null;
     }
 

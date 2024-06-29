@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 /*  Кейсы для тестирования
- * - добавление елементов / если нет места
+ * - добавление елементов / если нет места / если null
  * - доабвить по индексу /добавить в первый-последний инедкс коллекции/ если нет места / индекс вне коллекции
  * - удалить елемент /удалить первый-последний елемент коллекции/ если нет елемента
  * */
@@ -28,16 +28,7 @@ public class NewArrayListImplTest {
 
     // аргументы для тестов типа int element, int index
     static public Stream<Arguments> argsProviderForShouldAddElementByIndex() {
-        return Stream.of(
-                Arguments.of(100, 0),
-                Arguments.of(10, 9),
-                Arguments.of(40, 39),
-                Arguments.of(100, 5),
-                Arguments.of(2000, 126),
-                Arguments.of(10, 3),
-                Arguments.of(1, 0),
-                Arguments.of(54341, 313)
-        );
+        return Stream.of(Arguments.of(100, 0), Arguments.of(10, 9), Arguments.of(40, 39), Arguments.of(100, 5), Arguments.of(2000, 126), Arguments.of(10, 3), Arguments.of(1, 0), Arguments.of(54341, 313));
     }
 
     // заполним дефолтный лист елементами
@@ -45,8 +36,7 @@ public class NewArrayListImplTest {
     public void init() {
         DEFAULT_ARRAY_LIST = new NewArrayListImpl<>();
         // добавим пару елементов в массив
-        IntStream.range(0, INITIAL_SIZE)
-                .forEach(DEFAULT_ARRAY_LIST::add);
+        IntStream.range(0, INITIAL_SIZE).forEach(DEFAULT_ARRAY_LIST::add);
     }
 
     // добавления елемента
@@ -77,11 +67,10 @@ public class NewArrayListImplTest {
         Integer[] arrayList = new Integer[sizeStream];
         NewArrayList<Integer> array = new NewArrayListImpl<>();
         // заполним нативный список и наш лист данными
-        IntStream.range(0, sizeStream)
-                .forEach(e -> {
-                    arrayList[e] = e;
-                    array.add(e);
-                });
+        IntStream.range(0, sizeStream).forEach(e -> {
+            arrayList[e] = e;
+            array.add(e);
+        });
         // подготовка ожидаемого значения
         Object[] expectedArray = Arrays.stream(arrayList).toArray();
         // подготовка актуального результата
@@ -90,6 +79,15 @@ public class NewArrayListImplTest {
         // тест
         assertEquals(sizeStream, actualSize);
         assertArrayEquals(expectedArray, actualArray);
+    }
+
+    //
+    @Test
+    @DisplayName("При добавление null - выдает ошибку")
+    public void shouldReturnNullPointerIfPassedNullInAdd() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            DEFAULT_ARRAY_LIST.add(null);
+        });
     }
 
     // добавить елементы по индексу
@@ -104,11 +102,10 @@ public class NewArrayListImplTest {
         List<Integer> arrayForExpected = new ArrayList<>();
         NewArrayList<Integer> arrayForActual = new NewArrayListImpl<>();
         // заполним данными
-        IntStream.range(0, sizeStream)
-                .forEach(e -> {
-                    arrayForExpected.add(e);
-                    arrayForActual.add(e);
-                });
+        IntStream.range(0, sizeStream).forEach(e -> {
+            arrayForExpected.add(e);
+            arrayForActual.add(e);
+        });
 
         // подготовка ожидаемого значения
         arrayForExpected.add(index, element);
@@ -126,10 +123,9 @@ public class NewArrayListImplTest {
     public void shouldThrowIfIndexOut() {
         int index = 100;
         //
-        IndexOutOfBoundsException thrown = assertThrows(IndexOutOfBoundsException.class,
-                () -> {
-                    DEFAULT_ARRAY_LIST.add(index, 10);
-                });
+        IndexOutOfBoundsException thrown = assertThrows(IndexOutOfBoundsException.class, () -> {
+            DEFAULT_ARRAY_LIST.add(index, 10);
+        });
         assertEquals("Индекс вне диапазона: " + index, thrown.getMessage());
     }
 
