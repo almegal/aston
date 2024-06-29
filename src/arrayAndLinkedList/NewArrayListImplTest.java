@@ -141,14 +141,16 @@ public class NewArrayListImplTest {
     @ValueSource(ints = {0, 1, 2, 3})
     @DisplayName("Удалить елемент")
     public void shouldRemoveElement(Integer element) {
+        // создадим список из стандартной реализации
         List<Integer> arrayForExpected = new ArrayList<>(Arrays.asList(0, 1, 2, 3)) {
         };
+        // подгтовка ожидаемого значения
         arrayForExpected.remove(element);
         Object[] expected = arrayForExpected.toArray();
-        //
+        // подготовка актуального значения
         boolean isRemoved = DEFAULT_ARRAY_LIST.remove(element);
         Object[] actual = DEFAULT_ARRAY_LIST.toArray();
-
+        // тест
         assertTrue(isRemoved);
         assertArrayEquals(expected, actual);
     }
