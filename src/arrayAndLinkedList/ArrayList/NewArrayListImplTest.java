@@ -1,6 +1,5 @@
 package arrayAndLinkedList.ArrayList;
 
-import arrayAndLinkedList.ArrayList.NewArrayListImpl;
 import arrayAndLinkedList.NewList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -129,7 +128,7 @@ public class NewArrayListImplTest {
     }
 
     @Test
-    @DisplayName("Должен выбрасить исключение если индекса больше массива")
+    @DisplayName("Должен выбрасить исключение если индекс больше массива")
     public void shouldThrowIfIndexOut() {
         int index = 100;
         //
@@ -155,5 +154,12 @@ public class NewArrayListImplTest {
         // тест
         assertTrue(isRemoved);
         assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Метод удаления возращает false если элемент не найден")
+    public void shouldReturnFalseIfElementNotInCollectionWhenRemove() {
+        boolean isRemoved = DEFAULT_ARRAY_LIST.remove(100);
+        assertFalse(isRemoved);
     }
 }
