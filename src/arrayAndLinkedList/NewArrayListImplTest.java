@@ -28,7 +28,15 @@ public class NewArrayListImplTest {
 
     // аргументы для тестов типа int element, int index
     static public Stream<Arguments> argsProviderForShouldAddElementByIndex() {
-        return Stream.of(Arguments.of(100, 0), Arguments.of(10, 9), Arguments.of(40, 39), Arguments.of(100, 5), Arguments.of(2000, 126), Arguments.of(10, 3), Arguments.of(1, 0), Arguments.of(54341, 313));
+        return Stream.of(
+                Arguments.of(100, 0),
+                Arguments.of(10, 9),
+                Arguments.of(40, 39),
+                Arguments.of(100, 5),
+                Arguments.of(2000, 126),
+                Arguments.of(10, 3),
+                Arguments.of(1, 0),
+                Arguments.of(54341, 313));
     }
 
     // заполним дефолтный лист елементами
