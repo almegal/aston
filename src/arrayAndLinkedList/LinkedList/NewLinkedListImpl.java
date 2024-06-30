@@ -101,7 +101,7 @@ public class NewLinkedListImpl<T> implements NewList<T> {
     public boolean remove(@NotNull T element) {
         // Задаем текущую ноду
         Node<T> current = first;
-        // пока текущая нода существует
+        //  Пока нода есть
         while (current != null) {
             // если елементы равны
             if (current.element.equals(element)) {
@@ -197,7 +197,13 @@ public class NewLinkedListImpl<T> implements NewList<T> {
         return last != null ? last.element : null;
     }
 
-    private void addFirst(T element) {
+    /**
+     * Добавляет элемент в начало списка.
+     *
+     * @param element элемент, который нужно добавить, не может быть {@code null}
+     * @throws IllegalArgumentException если {@code element} равен {@code null}
+     */
+    private void addFirst(@NotNull T element) {
         Node<T> newNode = new Node<>(element, null, first);
         if (first != null) {
             first.prev = newNode;
@@ -209,7 +215,13 @@ public class NewLinkedListImpl<T> implements NewList<T> {
         size++;
     }
 
-    private void addLast(T element) {
+    /**
+     * Добавляет элемент в конец списка.
+     *
+     * @param element элемент, который нужно добавить, не может быть {@code null}
+     * @throws IllegalArgumentException если {@code element} равен {@code null}
+     */
+    private void addLast(@NotNull T element) {
         Node<T> newNode = new Node<>(element, last, null);
         if (last != null) {
             last.next = newNode;
@@ -233,7 +245,15 @@ public class NewLinkedListImpl<T> implements NewList<T> {
         }
     }
 
+    /**
+     * Возвращает узел, находящийся по указанному индексу.
+     *
+     * @param index индекс узла, который нужно получить
+     * @return узел, находящийся по указанному индексу
+     * @throws IndexOutOfBoundsException если индекс находится за пределами допустимого диапазона
+     */
     private Node<T> getNodeByIndex(int index) {
+        checkIndex(index);
         Node<T> node = first;
         for (int i = 0; i < index; i++) {
             node = node.next;
