@@ -164,4 +164,25 @@ public class NewLinkedListImplTest {
         assertArrayEquals(expectedArray, actualArray);
         assertEquals(UTILS_STRING_ARRAY.size(), DEFAULT_LINKED_LIST.size());
     }
+
+    @Test
+    @DisplayName("Проводить сортировку")
+    public void sort() {
+        //  подготовка ожидаемого значения
+        Object[] expectedArray = new Object[]{"a", "b", "c", "e"};
+
+        // подготовка данных
+        NewLinkedListImpl<String> newList = new NewLinkedListImpl<>();
+        newList.add("b");
+        newList.add("e");
+        newList.add("c");
+        newList.add("a");
+
+        // Подготовка актуального значения
+        newList.sort(String::compareTo);
+        Object[] actualArray = newList.toArray();
+
+        // Тест
+        assertArrayEquals(expectedArray, actualArray);
+    }
 }

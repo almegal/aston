@@ -149,8 +149,53 @@ public class NewLinkedListImpl<T> implements NewList<T> {
      */
     @Override
     public void sort(Comparator<T> comparator) {
-        // Реализация сортировки потребуется
+        if (first == null || first.next == null) {
+            return; // Список пуст или содержит один элемент
+        }
+
+        Node<T> current = first;
+
+        while (current != null) {
+            Node<T> minNode = current;
+            Node<T> next = current.next;
+
+            // Найти минимальный элемент в оставшейся части списка
+            while (next != null) {
+                if (comparator.compare(next.element, minNode.element) < 0) {
+                    minNode = next;
+                }
+                next = next.next;
+            }
+
+            // Если найден минимальный элемент отличается от текущего, поменять их местами
+            if (minNode != current) {
+                swapNodes(current, minNode);
+            }
+
+            // Перейти к следующему узлу
+            current = current.next;
+        }
     }
+
+    /**
+     * Обменивает значения элементов двух узлов списка.
+     *
+     * @param node1 первый узел
+     * @param node2 второй узел
+     * @throws IllegalArgumentException если один из узлов равен {@code null}
+     */
+    private void swapNodes(Node<T> node1, Node<T> node2) {
+        if (node1 == node2) return;
+
+        if (node1 == null || node2 == null) {
+            throw new IllegalArgumentException("Узлы не могут быть null");
+        }
+
+        T temp = node1.element;
+        node1.element = node2.element;
+        node2.element = temp;
+    }
+
 
     /**
      * Возвращает количество элементов в списке.
